@@ -1,4 +1,5 @@
 require('./config/dotenv');
+require('express-async-errors');
 
 const express = require('express');
 const { initDatabase } = require('./config/db');
@@ -30,7 +31,7 @@ initDatabase();
 
 app.use((err, req, res, next) => {
     console.log(err.stack);
-    res.status(500).send('Ocorreu um erro no servidor');
+    res.status(500).send({ 'Erro': err.message });
 });
 
 app.listen(port, () => {
